@@ -21,6 +21,9 @@ public class Storage {
     public List<Zgloszenie> getZgloszenia() {
         return new ArrayList<>(zgloszenia);
     }
+    public Zgloszenie getZgloszeniePoId(int clientId){
+        return zgloszenia.stream().filter(z -> z.getClientId() == clientId).findFirst().orElse(null);
+    }
     public boolean existByClientId(int clientId){
         return zgloszenia.stream().anyMatch(z -> z.getClientId() == clientId);
     }
