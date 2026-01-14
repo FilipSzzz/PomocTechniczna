@@ -18,7 +18,7 @@ public class PomocTechnicznaApp {
         
         // 1. Tworzymy nowe zgłoszenie
         service.utworzenieNowegoZgloszenia(555, 999);
-        
+        service.utworzenieNowegoZgloszenia(1234, 3333);
         // 2. Zmieniamy status istniejącego zgłoszenia (np. tego z ID 1 z init)
         service.zmianaStatusuZgloszenia(1, Status.Rozpatrzone);
         
@@ -28,10 +28,8 @@ public class PomocTechnicznaApp {
         // 4. Zmieniamy pracownika
         service.zmianaPracownikaZajmujacegoSieZgloszeniem(2, 777);
 
-        // 5. Wypisujemy zgłoszenia klienta 1234
-        System.out.println("Zgłoszenia klienta 1234:");
-        service.wypisanieZgloszeniaPoId(1234);
-        
+        service.wypisanieZgloszeniaPoId(1);
+        storage.print();
     }
 
     public static void main(String[] args) {

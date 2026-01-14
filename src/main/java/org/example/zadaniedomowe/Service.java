@@ -13,7 +13,7 @@ public class Service {
     public void utworzenieNowegoZgloszenia(int clientId, int pracownikId){
         int zgloszenieId = storage.generateNextId();
         storage.addZgloszenie(new Zgloszenie(LocalDate.now(),Status.W_trakcie,clientId,pracownikId,zgloszenieId));
-        System.out.println("Dodano nowe zgloszenie o ID " + zgloszenieId + " dla klienta o ID " + clientId + " i pracownika o ID " + pracownikId);
+        System.out.println("Dodano nowe zgloszenie zgloszenieID " + zgloszenieId + " dla clientID" + clientId + " i pracownikID " + pracownikId);
 
     }
     public void zmianaStatusuZgloszenia(int zgloszenieId, Status status){
@@ -38,11 +38,12 @@ public class Service {
             }
         }
     }
-    public void wypisanieZgloszeniaPoId(int clientId){
-        for (Zgloszenie zgloszenie : storage.getZgloszeniaArrayList()) {
-            if (zgloszenie.getClientId() == clientId) {
-                System.out.println(zgloszenie);
-            }
+    public void wypisanieZgloszeniaPoId(int zgloszenieId){
+        Zgloszenie zgloszenie = storage.getZgloszeniePoId(zgloszenieId);
+        if (zgloszenie != null) {
+            System.out.println(zgloszenie);
+        } else {
+            System.out.println("Nie znaleziono zgloszenia o ID " + zgloszenieId);
         }
     }
 

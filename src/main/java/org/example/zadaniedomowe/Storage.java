@@ -10,12 +10,6 @@ import java.util.List;
 public class Storage {
     private ArrayList<Zgloszenie> zgloszeniaArrayList = new ArrayList<>();
 
-
-    public Storage(){
-        zgloszeniaArrayList.add(new Zgloszenie(LocalDate.now(),Status.W_trakcie,1234,3333,1));
-        zgloszeniaArrayList.add(new Zgloszenie(LocalDate.now(),Status.OczekujeNaOdpowiedzKlienta,1234,3333,2));
-    }
-
     public List<Zgloszenie> getZgloszeniaArrayList() {
         return new ArrayList<>(zgloszeniaArrayList);
     }
@@ -26,9 +20,6 @@ public class Storage {
 
     }
 
-    public boolean existByClientId(int clientId){
-        return zgloszeniaArrayList.stream().anyMatch(z -> z.getClientId() == clientId);
-    }
     public int generateNextId(){
         return zgloszeniaArrayList.stream()
                 .mapToInt(Zgloszenie::getZgloszenieId)
@@ -37,6 +28,9 @@ public class Storage {
     }
     public void addZgloszenie(Zgloszenie zgloszenie){
         zgloszeniaArrayList.add(zgloszenie);
+    }
+    public void print(){
+        zgloszeniaArrayList.forEach(System.out::println);
     }
 
 }
