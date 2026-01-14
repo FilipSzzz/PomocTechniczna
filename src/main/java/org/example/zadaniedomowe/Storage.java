@@ -8,27 +8,35 @@ import java.util.List;
 
 @Component
 public class Storage {
-    private ArrayList<Zgloszenie> zgloszenia = new ArrayList<>();
+    private ArrayList<Zgloszenie> zgloszeniaArrayList = new ArrayList<>();
+
 
     public Storage(){
-        init();
-    }
-    public void init(){
-        zgloszenia.add(new Zgloszenie(LocalDate.now(),Status.W_trakcie,1234,3333));
-        zgloszenia.add(new Zgloszenie(LocalDate.now(),Status.OczekujeNaOdpowiedzKlienta,1234,3333));
+        zgloszeniaArrayList.add(new Zgloszenie(LocalDate.now(),Status.W_trakcie,1234,3333,1));
+        zgloszeniaArrayList.add(new Zgloszenie(LocalDate.now(),Status.OczekujeNaOdpowiedzKlienta,1234,3333,2));
     }
 
-    public List<Zgloszenie> getZgloszenia() {
-        return new ArrayList<>(zgloszenia);
+    public List<Zgloszenie> getZgloszeniaArrayList() {
+        return new ArrayList<>(zgloszeniaArrayList);
     }
-    public Zgloszenie getZgloszeniePoId(int clientId){
-        return zgloszenia.stream().filter(z -> z.getClientId() == clientId).findFirst().orElse(null);
+    public Zgloszenie getZgloszeniePoId(int zgloszenieId){
+        return zgloszeniaArrayList.stream()
+                .filter(zgloszenie -> zgloszenie.getZgloszenieId() == zgloszenieId)
+                .findFirst().orElse(null);
+
     }
+
     public boolean existByClientId(int clientId){
-        return zgloszenia.stream().anyMatch(z -> z.getClientId() == clientId);
+        return zgloszeniaArrayList.stream().anyMatch(z -> z.getClientId() == clientId);
+    }
+    public int generateNextId(){
+        return zgloszeniaArrayList.stream()
+                .mapToInt(Zgloszenie::getZgloszenieId)
+                .max()
+                .orElse(0) + 1;
     }
     public void addZgloszenie(Zgloszenie zgloszenie){
-        if (!existByClientId(zgloszenie.getClientId())) zgloszenia.add(zgloszenie);
+        zgloszeniaArrayList.add(zgloszenie);
     }
 
 }

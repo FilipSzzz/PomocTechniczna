@@ -11,17 +11,39 @@ public class Service {
     }
 
     public void utworzenieNowegoZgloszenia(int clientId, int pracownikId){
-        storage.addZgloszenie(new Zgloszenie(LocalDate.now(),Status.W_trakcie,clientId,pracownikId));
+        int zgloszenieId = storage.generateNextId();
+        storage.addZgloszenie(new Zgloszenie(LocalDate.now(),Status.W_trakcie,clientId,pracownikId,zgloszenieId));
+        System.out.println("Dodano nowe zgloszenie o ID " + zgloszenieId + " dla klienta o ID " + clientId + " i pracownika o ID " + pracownikId);
 
     }
-    public void zmianaStatusuZgloszenia(int clientId, Status status){
-        storage.getZgloszenia().forEach(System.out::println);
+    public void zmianaStatusuZgloszenia(int zgloszenieId, Status status){
+        Zgloszenie zgloszenie = storage.getZgloszeniePoId(zgloszenieId);
+        if (zgloszenie != null) {
+            zgloszenie.setStatus(status);
+            System.out.println("Zmieniono status zgloszenia o ID " + zgloszenieId + " na " + status);
+        } else {
+            System.out.println("Nie znaleziono zgloszenia o ID " + zgloszenieId);
+        }
     }
-    public void zmianaPracownikaZajmujacegoSieZgloszeniem(int clientId, int pracownikId){
-//        storage.getZgloszeniePoId();
+    public void zmianaPracownikaZajmujacegoSieZgloszeniem(int zgloszenieId, int nowypracownikId){
+        Zgloszenie zgloszenie = storage.getZgloszeniePoId(zgloszenieId);
+
+        if (zgloszenie != null) {
+            if(zgloszenie.getStatus() != Status.Zamkniete) {
+                zgloszenie.setPracownikId(nowypracownikId);
+                System.out.println("Przypisano nowego pracownika o ID " + nowypracownikId + " do zgloszenia o ID " + zgloszenieId);
+            }else{
+                System.out.println("Blad, nie mozna zmienic pracownika przy zamknietym zgloszeniu");
+
+            }
+        }
     }
     public void wypisanieZgloszeniaPoId(int clientId){
-        storage.getZgloszeniePoId(clientId).toString();
+        for (Zgloszenie zgloszenie : storage.getZgloszeniaArrayList()) {
+            if (zgloszenie.getClientId() == clientId) {
+                System.out.println(zgloszenie);
+            }
+        }
     }
 
 
