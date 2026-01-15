@@ -48,7 +48,6 @@ public class ServiceTest {
         assertEquals(2, z2.getZgloszenieId());
     }
 
-    // --- TESTY ZMIANY STATUSU ---
 
     @Test
     void zmianaStatusu_GdyZgloszenieIstnieje_PowinnaZaktualizowacStatus() {
@@ -101,5 +100,10 @@ public class ServiceTest {
     void zmianaPracownika_GdyZgloszenieNieIstnieje_NiePowinnaRzucacWyjatku() {
         // When & Then
         assertDoesNotThrow(() -> service.zmianaPracownikaZajmujacegoSieZgloszeniem(999, 500));
+    }
+    @Test
+    void ujemneId(){
+        service.utworzenieNowegoZgloszenia(-100, 200);
+        assertTrue(storage.getZgloszeniaArrayList().isEmpty());
     }
 }

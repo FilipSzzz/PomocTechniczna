@@ -11,8 +11,8 @@ public class Zgloszenie {
     private int zgloszenieId;
 
     public Zgloszenie(LocalDate dataWystawienia, Status status, int clientId, int pracownikId, int zgloszenieId) {
-        this.status = Status.W_trakcie;
-        this.dataWystawienia = LocalDate.now();
+        this.status = status;
+        this.dataWystawienia = dataWystawienia;
         this.clientId = clientId;
         this.pracownikId = pracownikId;
         this.zgloszenieId = zgloszenieId;
