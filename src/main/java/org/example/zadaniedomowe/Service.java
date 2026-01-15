@@ -11,7 +11,7 @@ public class Service {
     }
 
     public void utworzenieNowegoZgloszenia(int clientId, int pracownikId){
-        if (clientId <= 0 || pracownikId <= 0) {
+        if (clientId <= 0 && pracownikId <= 0) {
             return;
         }
         int zgloszenieId = storage.generateNextId();
@@ -21,7 +21,7 @@ public class Service {
     }
     public void zmianaStatusuZgloszenia(int zgloszenieId, Status status){
         Zgloszenie zgloszenie = storage.getZgloszeniePoId(zgloszenieId);
-        if (zgloszenie != null || zgloszenieId > 0) {
+        if (zgloszenie != null && zgloszenieId > 0) {
             zgloszenie.setStatus(status);
             System.out.println("Zmieniono status zgloszenia o ID " + zgloszenieId + " na " + status);
         } else {
@@ -31,7 +31,7 @@ public class Service {
     public void zmianaPracownikaZajmujacegoSieZgloszeniem(int zgloszenieId, int nowypracownikId){
         Zgloszenie zgloszenie = storage.getZgloszeniePoId(zgloszenieId);
 
-        if (zgloszenie != null || nowypracownikId > 0) {
+        if (zgloszenie != null && nowypracownikId > 0) {
             if(zgloszenie.getStatus() != Status.Zamkniete) {
                 zgloszenie.setPracownikId(nowypracownikId);
                 System.out.println("Przypisano nowego pracownika o ID " + nowypracownikId + " do zgloszenia o ID " + zgloszenieId);
@@ -43,7 +43,7 @@ public class Service {
     }
     public void wypisanieZgloszeniaPoId(int zgloszenieId){
         Zgloszenie zgloszenie = storage.getZgloszeniePoId(zgloszenieId);
-        if (zgloszenie != null) {
+        if (zgloszenie != null && zgloszenieId > 0) {
             System.out.println(zgloszenie);
         } else {
             System.out.println("Nie znaleziono zgloszenia o ID " + zgloszenieId);
