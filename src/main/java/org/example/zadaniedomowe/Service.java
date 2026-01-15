@@ -11,7 +11,7 @@ public class Service {
     }
 
     public void utworzenieNowegoZgloszenia(int clientId, int pracownikId){
-        if (clientId <= 0 && pracownikId <= 0) {
+        if (clientId <= 0 || pracownikId <= 0) {
             return;
         }
         int zgloszenieId = storage.generateNextId();
